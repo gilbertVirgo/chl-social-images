@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    font-weight: 600;
+}
+
+canvas {
+    aspect-ratio: 1 / 1;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    cursor: grab;
+}
+
+canvas:active {
+    cursor: grabbing;
+}
