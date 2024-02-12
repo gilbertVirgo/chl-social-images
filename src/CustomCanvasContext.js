@@ -105,9 +105,9 @@ export default function (context) {
 	};
 
 	this.renderAuthor = function (text) {
-		const fontSize = 50,
-			color = "#CCB562",
-			lineWidth = 4;
+		const fontSize = 36,
+			color = "white", // "#CCB562",
+			lineWidth = 2;
 
 		this.context.fillStyle = color;
 		this.context.textBaseline = "bottom";
