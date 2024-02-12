@@ -1,4 +1,5 @@
 import loadImage from "./helpers/loadImage";
+import smartquotes from "smartquotes";
 
 export default function (context) {
 	this.context = context;
@@ -54,6 +55,9 @@ export default function (context) {
 
 	this.renderQuote = function (text) {
 		if (!text || text?.length === 0) return;
+
+		// Correct quotation marks
+		text = smartquotes(text);
 
 		const words = text.split(" "),
 			offsetLeft = this.width * 0.025,
