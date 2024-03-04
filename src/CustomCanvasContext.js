@@ -91,7 +91,7 @@ export default function (context) {
 			lines = [];
 
 		this.context.textBaseline = "top";
-		this.context.letterSpacing = "2px";
+		this.context.letterSpacing = "5px";
 
 		while (
 			(lines.length + 1) * (fontSize + 1) * lineHeight <
