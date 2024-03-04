@@ -75,8 +75,17 @@ export default function (context) {
 		// Correct quotation marks
 		text = smartquotes(text);
 
-		const words = text.split(" "),
-			lineHeight = 1.15;
+		const lineHeight = 1.15;
+
+		let words = text.trim().split(" ");
+
+		if (words.length > 1) {
+			// To prevent orphans, join the last two words
+			// together with a fake 'non-breaking space'
+			const lastWord = words.pop();
+
+			words[words.length - 1] += " " + lastWord;
+		}
 
 		let fontSize = 1,
 			lines = [];
