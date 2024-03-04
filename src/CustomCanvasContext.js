@@ -133,7 +133,7 @@ export default function (context) {
 
 		this.context.fillStyle = color;
 		this.context.font = `600 ${fontSize}px 'Avenir'`;
-		this.context.letterSpacing = "3px";
+		this.context.letterSpacing = "10px";
 
 		this.context.fillText(text, textOffsetLeft, authorOffsetTop);
 	};
