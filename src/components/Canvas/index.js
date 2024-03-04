@@ -8,6 +8,7 @@ export default ({
 	backgroundImage,
 	setBackgroundImage,
 	inputFields,
+	authorTextColor,
 }) => {
 	const canvasRef = React.useRef();
 
@@ -31,7 +32,10 @@ export default ({
 
 				customContext.clear();
 				if (backgroundImage.image)
-					customContext.renderImage(backgroundImage);
+					customContext.renderImage({
+						...backgroundImage,
+						blurAmount: inputFields["Image blur"],
+					});
 
 				customContext.renderBrightnessFilter(
 					+inputFields["Image brightness"]
@@ -43,10 +47,13 @@ export default ({
 
 				customContext.renderQuote(inputFields["Quote"]);
 
-				customContext.renderAuthor(inputFields["Author"]);
+				customContext.renderAuthor(
+					inputFields["Author"],
+					authorTextColor
+				);
 			})();
 		}
-	}, [backgroundImage, inputFields]);
+	}, [backgroundImage, inputFields, authorTextColor]);
 
 	return (
 		<canvas

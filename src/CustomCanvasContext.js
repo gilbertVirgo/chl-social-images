@@ -1,3 +1,15 @@
+import {
+	authorOffsetTop,
+	logoHeight,
+	logoOffsetLeft,
+	logoOffsetTop,
+	logoWidth,
+	quoteMaxHeight,
+	quoteMaxWidth,
+	quoteOffsetTop,
+	textOffsetLeft,
+} from "./config";
+
 import loadImage from "./helpers/loadImage";
 import smartquotes from "smartquotes";
 
@@ -18,7 +30,10 @@ export default function (context) {
 		scale,
 		originalWidth,
 		originalHeight,
+		blurAmount,
 	}) {
+		this.context.save();
+		this.context.filter = `blur(${blurAmount}px)`;
 		this.context.drawImage(
 			image,
 			offsetLeft,
@@ -26,6 +41,7 @@ export default function (context) {
 			originalWidth * scale,
 			originalHeight * scale
 		);
+		this.context.restore();
 	};
 
 	this.renderBrightnessFilter = function (brightnessPercentage) {
@@ -46,10 +62,10 @@ export default function (context) {
 		const image = await loadImage(src);
 		this.context.drawImage(
 			image,
-			this.width * 0.025,
-			this.width * 0.025,
-			200,
-			80
+			logoOffsetLeft,
+			logoOffsetTop,
+			logoWidth,
+			logoHeight
 		);
 	};
 
@@ -60,10 +76,6 @@ export default function (context) {
 		text = smartquotes(text);
 
 		const words = text.split(" "),
-			offsetLeft = this.width * 0.025,
-			offsetTop = this.height * 0.15,
-			maxWidth = this.width * 0.95,
-			maxHeight = this.height * 0.7,
 			lineHeight = 1.15;
 
 		let fontSize = 1,
@@ -72,8 +84,11 @@ export default function (context) {
 		this.context.textBaseline = "top";
 		this.context.letterSpacing = "2px";
 
-		while ((lines.length + 1) * (fontSize + 1) * lineHeight < maxHeight) {
-			this.context.font = `${fontSize++}px 'Fredericka the Great'`;
+		while (
+			(lines.length + 1) * (fontSize + 1) * lineHeight <
+			quoteMaxHeight
+		) {
+			this.context.font = `${fontSize++}px 'Cormorant Garamond'`;
 
 			lines = [""];
 			let wordIndex = 0;
@@ -83,7 +98,7 @@ export default function (context) {
 
 				if (
 					this.context.measureText(lines[lines.length - 1] + nextWord)
-						.width < maxWidth
+						.width < quoteMaxWidth
 				)
 					lines[lines.length - 1] += nextWord;
 				else lines.push(nextWord);
@@ -93,41 +108,24 @@ export default function (context) {
 		this.context.fillStyle = "white";
 
 		const paddingTop =
-			(maxHeight - lines.length * lineHeight * fontSize) / 2;
+			(quoteMaxHeight - lines.length * lineHeight * fontSize) / 2;
 
 		lines.forEach((line, index) => {
 			this.context.fillText(
 				line,
-				offsetLeft,
-				offsetTop + index * fontSize * lineHeight + paddingTop
+				textOffsetLeft,
+				quoteOffsetTop + index * fontSize * lineHeight + paddingTop
 			);
 		});
 	};
 
-	this.renderAuthor = function (text) {
-		const fontSize = 36,
-			color = "white", // "#CCB562",
-			lineWidth = 2;
+	this.renderAuthor = function (text, color) {
+		const fontSize = 36;
 
 		this.context.fillStyle = color;
-		this.context.textBaseline = "bottom";
-		this.context.font = `600 ${fontSize}px 'Gill Sans'`;
-		this.context.letterSpacing = "7px";
+		this.context.font = `600 ${fontSize}px 'Avenir'`;
+		this.context.letterSpacing = "3px";
 
-		const { width } = this.context.measureText(text);
-
-		let offsetLeft = this.width * 0.975 - width,
-			offsetBottom = this.height * 0.975;
-
-		this.context.fillText(text, offsetLeft, offsetBottom);
-
-		offsetBottom -= fontSize / 2 + lineWidth / 2;
-
-		this.context.fillRect(
-			this.width * 0.025,
-			offsetBottom,
-			offsetLeft - this.width * 0.05,
-			lineWidth
-		);
+		this.context.fillText(text, textOffsetLeft, authorOffsetTop);
 	};
 }

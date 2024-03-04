@@ -1,6 +1,7 @@
 import { Form, Stack } from "react-bootstrap";
 
 import Canvas from "./components/Canvas";
+import { FastAverageColor } from "fast-average-color";
 import React from "react";
 import imageFromDataURL from "./helpers/imageFromDataURL";
 import inputFieldMap from "./inputFieldMap";
@@ -25,6 +26,8 @@ function App() {
 			])
 		)
 	);
+
+	const [authorTextColor, setAuthorTextColor] = React.useState("#000000");
 
 	const formatField = ({ label, Element, props, onChange }, index) => (
 		<Form.Group key={`input-field-${index}`}>
@@ -64,6 +67,17 @@ function App() {
 					originalHeight = canvasInnerWidth;
 					originalWidth = originalHeight * aspectRatio;
 				}
+
+				new FastAverageColor().getColorAsync(image).then((color) => {
+					const [r, g, b] = color.value;
+
+					setAuthorTextColor(
+						// Brighten the colour by 175%.
+						`rgb(${[r, g, b]
+							.map((value) => Math.min(255, value * 1.75))
+							.join(",")})`
+					);
+				});
 
 				setBackgroundImage({
 					image,
@@ -112,6 +126,7 @@ function App() {
 					backgroundImage={backgroundImage}
 					setBackgroundImage={setBackgroundImage}
 					inputFields={inputFields}
+					authorTextColor={authorTextColor}
 				/>
 			</Stack>
 		</main>

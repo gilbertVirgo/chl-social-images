@@ -59,6 +59,16 @@ export default [
 		onChange: handleChangeInputField,
 	},
 	{
+		label: "Image blur",
+		Element: Form.Range,
+		initialValue: 10,
+		props: {
+			min: 0,
+			max: 30,
+		},
+		onChange: handleChangeInputField,
+	},
+	{
 		label: "Image zoom",
 		Element: Form.Range,
 		initialValue: 100,
