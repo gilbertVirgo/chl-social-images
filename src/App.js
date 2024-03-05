@@ -114,7 +114,7 @@ function App() {
 			}}
 		>
 			<Stack
-				style={{ maxWidth: `${wrapperWidth}px`, alignSelf: "center" }}
+				style={{width: `${wrapperWidth}px`, maxWidth: "calc(100% - 30px)", alignSelf: "center" }}
 				gap={3}
 			>
 				<Form.Group>
