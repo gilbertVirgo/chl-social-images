@@ -36,10 +36,10 @@ export default function (context) {
 		this.context.filter = `blur(${blurAmount}px)`;
 		this.context.drawImage(
 			image,
-			offsetLeft,
-			offsetTop,
-			originalWidth * scale,
-			originalHeight * scale
+			offsetLeft - blurAmount * scale, // Account for bleed around edges due to blur
+			offsetTop - blurAmount * scale,
+			originalWidth * scale + blurAmount * 2 * scale,
+			originalHeight * scale + blurAmount * 2 * scale
 		);
 		this.context.restore();
 	};

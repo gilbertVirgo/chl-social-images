@@ -16,6 +16,8 @@ function App() {
 		offsetLeft: 0,
 		offsetTop: 0,
 		scale: 1,
+		blurAmount: inputFieldMap.find((field) => field.label === "Image blur")
+			.initialValue,
 	});
 
 	const [inputFields, setInputFields] = React.useState(
@@ -72,9 +74,9 @@ function App() {
 					const [r, g, b] = color.value;
 
 					setAuthorTextColor(
-						// Brighten the colour by 175%.
+						// Brighten the colour by 300%.
 						`rgb(${[r, g, b]
-							.map((value) => Math.min(255, value * 1.75))
+							.map((value) => Math.min(255, value * 3))
 							.join(",")})`
 					);
 				});
@@ -98,6 +100,7 @@ function App() {
 		setBackgroundImage((backgroundImage) => {
 			const backgroundImageCopy = { ...backgroundImage };
 			backgroundImageCopy.scale = +inputFields["Image zoom"] / 100;
+			backgroundImageCopy.blurAmount = +inputFields["Image blur"];
 			return backgroundImageCopy;
 		});
 	}, [inputFields]);

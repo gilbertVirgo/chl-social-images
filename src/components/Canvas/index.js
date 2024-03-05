@@ -32,10 +32,7 @@ export default ({
 
 				customContext.clear();
 				if (backgroundImage.image)
-					customContext.renderImage({
-						...backgroundImage,
-						blurAmount: inputFields["Image blur"],
-					});
+					customContext.renderImage(backgroundImage);
 
 				customContext.renderBrightnessFilter(
 					+inputFields["Image brightness"]
