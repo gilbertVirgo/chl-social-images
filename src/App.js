@@ -29,7 +29,8 @@ function App() {
 		)
 	);
 
-	const [authorTextColor, setAuthorTextColor] = React.useState("#000000");
+	const [authorTextColor, setAuthorTextColor] =
+		React.useState("rgb(0, 0, 0)");
 
 	const formatField = ({ label, Element, props, onChange }, index) => (
 		<Form.Group key={`input-field-${index}`}>
@@ -71,14 +72,17 @@ function App() {
 				}
 
 				new FastAverageColor().getColorAsync(image).then((color) => {
-					const [r, g, b] = color.value;
+					let [r, g, b] = color.value;
 
-					setAuthorTextColor(
-						// Brighten the colour by 300%.
-						`rgb(${[r, g, b]
-							.map((value) => Math.min(255, value * 3))
-							.join(",")})`
-					);
+					// Cumulative value of the channels should be at least 255;
+
+					while (r + g + b < 255 * 1.5) {
+						r = Math.min(255, r + 1);
+						g = Math.min(255, g + 1);
+						b = Math.min(255, b + 1);
+					}
+
+					setAuthorTextColor(`rgb(${r}, ${g}, ${b})`);
 				});
 
 				setBackgroundImage({
@@ -114,7 +118,11 @@ function App() {
 			}}
 		>
 			<Stack
-				style={{width: `${wrapperWidth}px`, maxWidth: "calc(100% - 30px)", alignSelf: "center" }}
+				style={{
+					width: `${wrapperWidth}px`,
+					maxWidth: "calc(100% - 30px)",
+					alignSelf: "center",
+				}}
 				gap={3}
 			>
 				<Form.Group>
