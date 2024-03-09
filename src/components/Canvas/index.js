@@ -38,7 +38,7 @@ export default ({
 					+inputFields["Image brightness"]
 				);
 
-				await customContext.renderNoiseLayer();
+				// await customContext.renderNoiseLayer();
 
 				await customContext.renderLogo(inputFields["Logo type"]);
 
