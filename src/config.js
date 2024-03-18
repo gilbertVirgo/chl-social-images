@@ -15,3 +15,5 @@ export const quoteMaxWidth = canvasWidth - textOffsetLeft * 2;
 export const quoteMaxHeight = canvasHeight - quoteOffsetTop * 2;
 
 export const authorOffsetTop = quoteOffsetTop + quoteMaxHeight + gutter;
+
+export const authorTextCompositeColorChannelMax = 255 * 3 * 0.88;

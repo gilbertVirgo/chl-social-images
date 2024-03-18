@@ -3,6 +3,7 @@ import { Form, Stack } from "react-bootstrap";
 import Canvas from "./components/Canvas";
 import { FastAverageColor } from "fast-average-color";
 import React from "react";
+import { authorTextCompositeColorChannelMax } from "./config";
 import imageFromDataURL from "./helpers/imageFromDataURL";
 import inputFieldMap from "./inputFieldMap";
 
@@ -76,7 +77,7 @@ function App() {
 
 					// Cumulative value of the channels should be at least 255;
 
-					while (r + g + b < 255 * 1.5) {
+					while (r + g + b < authorTextCompositeColorChannelMax) {
 						r = Math.min(255, r + 1);
 						g = Math.min(255, g + 1);
 						b = Math.min(255, b + 1);
