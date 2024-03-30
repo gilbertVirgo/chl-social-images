@@ -88,7 +88,8 @@ export default function (context) {
 		}
 
 		let fontSize = 1,
-			lines = [];
+			lines = [],
+			wordsCache;
 
 		this.context.textBaseline = "top";
 		this.context.letterSpacing = "5px";
@@ -99,11 +100,26 @@ export default function (context) {
 		) {
 			this.context.font = `${fontSize++}px 'Cormorant Garamond'`;
 
+			// Copy of the original array so that we don't mutate it
+			wordsCache = [...words];
+
+			// In the rare case of the final line (with the fake double-space)
+			// exceeds the max width, break the two words apart again.
+			if (
+				this.context.measureText(wordsCache[wordsCache.length - 1])
+					.width > quoteMaxWidth
+			) {
+				const [penultimateWord, finalWord] =
+					wordsCache[wordsCache.length - 1].split(" ");
+				wordsCache[wordsCache.length - 1] = penultimateWord;
+				wordsCache.push(finalWord);
+			}
+
 			lines = [""];
 			let wordIndex = 0;
 
 			do {
-				const nextWord = words[wordIndex] + " ";
+				const nextWord = wordsCache[wordIndex] + " ";
 
 				if (
 					this.context.measureText(lines[lines.length - 1] + nextWord)
@@ -111,7 +127,7 @@ export default function (context) {
 				)
 					lines[lines.length - 1] += nextWord;
 				else lines.push(nextWord);
-			} while (++wordIndex < words.length);
+			} while (++wordIndex < wordsCache.length);
 		}
 
 		this.context.fillStyle = "white";
