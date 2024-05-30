@@ -147,7 +147,7 @@ export default function (context) {
 	};
 
 	this.renderAuthor = function (text, color) {
-		const fontSize = 36;
+		const fontSize = 24;
 
 		this.context.fillStyle = color;
 		this.context.font = `600 ${fontSize}px 'Avenir'`;
