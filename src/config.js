@@ -8,9 +8,9 @@ export const logoOffsetTop = gutter;
 export const logoWidth = 200;
 export const logoHeight = 80;
 
-export const textOffsetLeft = 100;
+export const textOffsetLeft = 180;
 
-export const quoteOffsetTop = 200;
+export const quoteOffsetTop = 300;
 export const quoteMaxWidth = canvasWidth - textOffsetLeft * 2;
 export const quoteMaxHeight = canvasHeight - quoteOffsetTop * 2;
 

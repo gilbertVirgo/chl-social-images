@@ -1,5 +1,6 @@
 import {
 	authorOffsetTop,
+	canvasWidth,
 	logoHeight,
 	logoOffsetLeft,
 	logoOffsetTop,
@@ -93,6 +94,7 @@ export default function (context) {
 
 		this.context.textBaseline = "top";
 		this.context.letterSpacing = "5px";
+		this.context.textAlign = "center";
 
 		while (
 			(lines.length + 1) * (fontSize + 1) * lineHeight <
@@ -138,7 +140,7 @@ export default function (context) {
 		lines.forEach((line, index) => {
 			this.context.fillText(
 				line,
-				textOffsetLeft,
+				canvasWidth / 2,
 				quoteOffsetTop + index * fontSize * lineHeight + paddingTop
 			);
 		});
@@ -151,6 +153,6 @@ export default function (context) {
 		this.context.font = `600 ${fontSize}px 'Avenir'`;
 		this.context.letterSpacing = "10px";
 
-		this.context.fillText(text, textOffsetLeft, authorOffsetTop);
+		this.context.fillText(text, canvasWidth / 2, authorOffsetTop);
 	};
 }
