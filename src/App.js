@@ -1,15 +1,15 @@
 import { Form, Stack } from "react-bootstrap";
+import { authorTextCompositeColorChannelMax, canvasWidth } from "./config";
 
 import Canvas from "./components/Canvas";
 import { FastAverageColor } from "fast-average-color";
 import React from "react";
-import { authorTextCompositeColorChannelMax } from "./config";
 import imageFromDataURL from "./helpers/imageFromDataURL";
 import inputFieldMap from "./inputFieldMap";
 
 function App() {
 	const wrapperWidth = 480,
-		canvasInnerWidth = 1024;
+		canvasInnerWidth = canvasWidth;
 
 	const [backgroundImage, setBackgroundImage] = React.useState({
 		image: undefined,
